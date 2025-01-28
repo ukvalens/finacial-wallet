@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const signupForm = document.getElementById('signupForm');
     const loginForm = document.getElementById('loginForm');
-    const signupImages = ['wallet-app-image1.jpg', 'wallet-app-image2.jpg', 'wallet-app-image3.jpg'];
-    const loginImages = ['wallet-app-image1.jpg', 'wallet-app-image2.jpg', 'wallet-app-image3.jpg'];
+    const signupImages = ['../IMAGES/image1.jpeg', '../IMAGES/image2.jpeg', '../IMAGES/image3.jpeg'];
+    const loginImages = ['../IMAGES/image1.jpeg', '../IMAGES/image2.jpeg', '../IMAGES/image3.jpeg'];
     let signupImageIndex = 0;
     let loginImageIndex = 0;
 
