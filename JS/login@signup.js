@@ -1,4 +1,4 @@
-// ../JS/auth-script.js
+// ../JS/login@signup.js
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Auth script is ready!');
 
@@ -18,7 +18,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Perform sign-up logic (e.g., send data to server)
+            if (!isValidEmail(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            if (!isStrongPassword(password)) {
+                alert('Password must be at least 8 characters long, include a mix of uppercase, lowercase, numbers, and special characters.');
+                return;
+            }
+
+            // Save credentials to local storage for demo purposes (not secure for production)
+            localStorage.setItem('userEmail', email);
+            localStorage.setItem('userPassword', password);
+
             console.log('Sign-up form submitted with:', { name, email, password });
 
             // Simulate successful sign-up and redirect to login
@@ -43,11 +56,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Perform login logic (e.g., validate credentials)
-            console.log('Login form submitted with:', { email, password });
+            const storedEmail = localStorage.getItem('userEmail');
+            const storedPassword = localStorage.getItem('userPassword');
 
-            // Simulate successful login and redirect to wallet
-            window.location.href = '../HTML/wallet.html';
+            if (email === storedEmail && password === storedPassword) {
+                console.log('Login successful');
+                window.location.href = '../HTML/wallet.html';
+            } else {
+                alert('Invalid email or password.');
+            }
         });
     }
 });
+
+function isValidEmail(email) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+}
+
+function isStrongPassword(password) {
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordPattern.test(password);
+}
