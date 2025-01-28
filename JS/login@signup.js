@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const signupForm = document.getElementById('signupForm');
     const loginForm = document.getElementById('loginForm');
+    const signupImages = ['wallet-app-image1.jpg', 'wallet-app-image2.jpg', 'wallet-app-image3.jpg'];
+    const loginImages = ['wallet-app-image1.jpg', 'wallet-app-image2.jpg', 'wallet-app-image3.jpg'];
+    let signupImageIndex = 0;
+    let loginImageIndex = 0;
 
     if (signupForm) {
         signupForm.addEventListener('submit', (e) => {
@@ -42,6 +46,12 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('name').removeAttribute('required');
         document.getElementById('email').removeAttribute('required');
         document.getElementById('password').removeAttribute('required');
+
+        // Image cycling for sign-up page
+        document.getElementById('signup-next').addEventListener('click', () => {
+            signupImageIndex = (signupImageIndex + 1) % signupImages.length;
+            document.getElementById('signup-img').src = signupImages[signupImageIndex];
+        });
     }
 
     if (loginForm) {
@@ -65,6 +75,12 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 alert('Invalid email or password.');
             }
+        });
+
+        // Image cycling for login page
+        document.getElementById('login-next').addEventListener('click', () => {
+            loginImageIndex = (loginImageIndex + 1) % loginImages.length;
+            document.getElementById('login-img').src = loginImages[loginImageIndex];
         });
     }
 });
