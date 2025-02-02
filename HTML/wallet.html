@@ -1,62 +1,69 @@
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('Dashboard is ready!');
-
-    // Example data for demo purposes
-    const accountBalances = [
-        { type: 'Bank Account', balance: 5000 },
-        { type: 'Mobile Money', balance: 1200 },
-        { type: 'Cash', balance: 300 }
-    ];
-
-    const recentTransactions = [
-        { description: 'Groceries', amount: 50, date: '01/26/2025' },
-        { description: 'Salary', amount: 2500, date: '01/25/2025' },
-        { description: 'Utilities', amount: 100, date: '01/24/2025' }
-    ];
-
-    const budgetStatus = 'You have $600 remaining for this month.';
-    const notifications = [
-        'Budget exceeded for Entertainment category.',
-        'New transaction: Rent - $900.'
-    ];
-
-    // Populate account balances
-    const accountBalancesList = document.getElementById('account-balances-list');
-    accountBalances.forEach(account => {
-        const li = document.createElement('li');
-        li.textContent = `${account.type}: $${account.balance}`;
-        accountBalancesList.appendChild(li);
-    });
-
-    // Populate recent transactions
-    const recentTransactionsList = document.getElementById('recent-transactions-list');
-    recentTransactions.forEach(transaction => {
-        const li = document.createElement('li');
-        li.textContent = `${transaction.description} - $${transaction.amount} (${transaction.date})`;
-        recentTransactionsList.appendChild(li);
-    });
-
-    // Populate budget status
-    const budgetStatusText = document.getElementById('budget-status-text');
-    budgetStatusText.textContent = budgetStatus;
-
-    // Populate notifications
-    const notificationsList = document.getElementById('notifications-list');
-    notifications.forEach(notification => {
-        const li = document.createElement('li');
-        li.textContent = notification;
-        notificationsList.appendChild(li);
-    });
-
-    // Display welcome message with username and profile picture
-    const userName = sessionStorage.getItem('userName') || "User"; // Default to "User" if no name is found
-    const userProfilePic = sessionStorage.getItem('userProfilePic') || "https://via.placeholder.com/100"; // Default profile pic
-
-    const welcomeMessage = document.getElementById("welcome-message");
-    if (welcomeMessage) {
-        welcomeMessage.innerHTML = `
-            <h1>Welcome, ${userName}!</h1>
-            <img src="${userProfilePic}" alt="${userName}'s profile picture" width="100" height="100" style="border-radius: 50%;">
-        `;
-    }
-});
+<!-- dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Wallet App</title>
+    <link rel="stylesheet" href="../CSS/styles.css">
+</head>
+<body>
+     <header>
+        <h1 id="wallet-heading">Wallet Dashboard</h1> <!-- This will be updated with username -->
+    </header>
+    <div class="container">
+        <header>
+            <nav class="top-nav">
+                <div class="logo">Wallet App</div>
+                <div class="profile">
+                    <img src="../IMAGES/profile.jpg" alt="Profile Picture" class="profile-pic">
+                    <span class="profile-name">Eric</span>
+                </div>
+            </nav>
+        </header>
+        <aside class="sidebar">
+            <ul>
+                <li><a href="../HTML/wallet.html">Dashboard</a></li>
+                <li><a href="#accounts">Accounts</a></li>
+                <li><a href="#transactions">Transactions</a></li>
+                <li><a href="#categories">Categories</a></li>
+                <li><a href="#budget">Budget</a></li>
+                <li><a href="#notifications">Notifications</a></li>
+                <li><a href="#settings">Settings</a></li>
+                <li><a href="../HTML/login.html">Logout</a></li>
+            </ul>
+        </aside>
+        <main>
+            <section id="dashboard-content">
+                <h1>Welcome, Eric</h1>
+                <div class="account-balances">
+                    <h2>Account Balances</h2>
+                    <ul id="account-balances-list">
+                        <!-- Dynamic account balances will be inserted here -->
+                    </ul>
+                </div>
+                <div class="recent-transactions">
+                    <h2>Recent Transactions</h2>
+                    <ul id="recent-transactions-list">
+                        <!-- Dynamic recent transactions will be inserted here -->
+                    </ul>
+                </div>
+                <div class="budget-status">
+                    <h2>Budget Status</h2>
+                    <p id="budget-status-text">Loading budget status...</p>
+                </div>
+                <div class="notifications">
+                    <h2>Notifications</h2>
+                    <ul id="notifications-list">
+                        <!-- Dynamic notifications will be inserted here -->
+                    </ul>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2025 Wallet App. All rights reserved.</p>
+        </footer>
+    </div>
+    <script src="../JS/script.js"></script>
+</body>
+</html>
