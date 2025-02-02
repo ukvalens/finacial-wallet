@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value.trim();
+            const profileImage = document.getElementById('profileImage').files[0];
 
             if (!name || !email || !password) {
                 alert('All fields are required.');
@@ -51,8 +52,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Store user in localStorage (for demo purposes only)
-            const user = { name, email, password };
+            // Handle profile image
+            let profileImageURL = null;
+            if (profileImage) {
+                profileImageURL = URL.createObjectURL(profileImage);
+            }
+
+            // Store user data and image in localStorage
+            const user = { name, email, password, profileImageURL };
             localStorage.setItem(email, JSON.stringify(user));
 
             console.log('Sign-up successful:', user);
@@ -84,10 +91,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const user = JSON.parse(storedUser);
             if (user.password === password) {
-                // Save session
+                // Save session with profile image URL
                 sessionStorage.setItem('userName', user.name);
                 sessionStorage.setItem('userEmail', user.email);
-                sessionStorage.setItem('userProfilePic', '../IMAGES/profile.jpg'); // Replace with actual user image
+                sessionStorage.setItem('userProfilePic', user.profileImageURL || '../IMAGES/profile.jpg'); // Default if no image
 
                 console.log('Login successful');
                 alert('Login successful! Redirecting to dashboard.');
