@@ -1,10 +1,10 @@
-<!-- wallet.html -->
+<!-- dashboard.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wallet - Wallet App</title>
+    <title>Dashboard - Wallet App</title>
     <link rel="stylesheet" href="../CSS/styles.css">
 </head>
 <body>
@@ -13,28 +13,48 @@
             <nav class="top-nav">
                 <div class="logo">Wallet App</div>
                 <div class="profile">
-                    <img src="profile.jpg" alt="Profile Picture" class="profile-pic">
+                    <img src="../IMAGES/profile.jpg" alt="Profile Picture" class="profile-pic">
                     <span class="profile-name">Eric</span>
                 </div>
             </nav>
         </header>
         <aside class="sidebar">
             <ul>
-                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="../HTML/wallet.html">Dashboard</a></li>
                 <li><a href="#accounts">Accounts</a></li>
                 <li><a href="#transactions">Transactions</a></li>
                 <li><a href="#categories">Categories</a></li>
                 <li><a href="#budget">Budget</a></li>
                 <li><a href="#notifications">Notifications</a></li>
                 <li><a href="#settings">Settings</a></li>
-                <li><a href="#logout">Logout</a></li>
+                <li><a href="../HTML/login.html">Logout</a></li>
             </ul>
         </aside>
         <main>
-            <section id="content">
-                <!-- Main content goes here -->
-                <h1>Welcome to Your Wallet</h1>
-                <p>Track your expenses, manage your budget, and more!</p>
+            <section id="dashboard-content">
+                <h1>Welcome, Eric</h1>
+                <div class="account-balances">
+                    <h2>Account Balances</h2>
+                    <ul id="account-balances-list">
+                        <!-- Dynamic account balances will be inserted here -->
+                    </ul>
+                </div>
+                <div class="recent-transactions">
+                    <h2>Recent Transactions</h2>
+                    <ul id="recent-transactions-list">
+                        <!-- Dynamic recent transactions will be inserted here -->
+                    </ul>
+                </div>
+                <div class="budget-status">
+                    <h2>Budget Status</h2>
+                    <p id="budget-status-text">Loading budget status...</p>
+                </div>
+                <div class="notifications">
+                    <h2>Notifications</h2>
+                    <ul id="notifications-list">
+                        <!-- Dynamic notifications will be inserted here -->
+                    </ul>
+                </div>
             </section>
         </main>
         <footer>

@@ -1,4 +1,3 @@
-// ../JS/login@signup.js
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Auth script is ready!');
 
@@ -9,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let signupImageIndex = 0;
     let loginImageIndex = 0;
 
+    // SIGNUP FORM HANDLING
     if (signupForm) {
         signupForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -32,13 +32,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Save credentials to local storage for demo purposes (not secure for production)
-            localStorage.setItem('userEmail', email);
-            localStorage.setItem('userPassword', password);
+            // Check if user already exists
+            if (localStorage.getItem(email)) {
+                alert('An account with this email already exists. Please log in.');
+                return;
+            }
 
-            console.log('Sign-up form submitted with:', { name, email, password });
+            // Save user details securely (for demo purposes only)
+            const user = {
+                name,
+                email,
+                password,  // Note: NEVER store passwords in plaintext in real applications!
+            };
+            localStorage.setItem(email, JSON.stringify(user));
 
-            // Simulate successful sign-up and redirect to login
+            console.log('Sign-up successful:', user);
+            alert('Sign-up successful! Redirecting to login page.');
+            
             window.location.href = '../HTML/login.html';
         });
 
@@ -54,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // LOGIN FORM HANDLING
     if (loginForm) {
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -66,11 +77,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            const storedEmail = localStorage.getItem('userEmail');
-            const storedPassword = localStorage.getItem('userPassword');
+            // Retrieve stored user data
+            const storedUser = localStorage.getItem(email);
+            if (!storedUser) {
+                alert('No account found with this email. Please sign up.');
+                return;
+            }
 
-            if (email === storedEmail && password === storedPassword) {
+            const user = JSON.parse(storedUser);
+            if (user.password === password) {
+                // Save user session details
+                sessionStorage.setItem('userName', user.name);
+                sessionStorage.setItem('userEmail', user.email);
+                sessionStorage.setItem('userProfilePic', "https://example.com/profile.jpg"); // Replace with actual profile pic URL
+
                 console.log('Login successful');
+                alert('Login successful! Redirecting to dashboard.');
+                
                 window.location.href = '../HTML/wallet.html';
             } else {
                 alert('Invalid email or password.');
@@ -85,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// VALIDATION FUNCTIONS
 function isValidEmail(email) {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailPattern.test(email);
