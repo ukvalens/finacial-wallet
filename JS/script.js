@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Dashboard is ready!');
-    
+
     // Example data for demo purposes
     const accountBalances = [
         { type: 'Bank Account', balance: 5000 },
@@ -48,15 +48,15 @@ document.addEventListener('DOMContentLoaded', () => {
         notificationsList.appendChild(li);
     });
 
-    // Display welcome message
-    const userName = sessionStorage.getItem('userName');
-    const userProfilePic = sessionStorage.getItem('userProfilePic');
+    // Display welcome message with username and profile picture
+    const userName = sessionStorage.getItem('userName') || "User"; // Default to "User" if no name is found
+    const userProfilePic = sessionStorage.getItem('userProfilePic') || "https://via.placeholder.com/100"; // Default profile pic
 
-    if (userName && userProfilePic) {
-        document.getElementById("welcome-message").innerHTML = `
+    const welcomeMessage = document.getElementById("welcome-message");
+    if (welcomeMessage) {
+        welcomeMessage.innerHTML = `
             <h1>Welcome, ${userName}!</h1>
-            <img src="${userProfilePic}" alt="${userName}'s profile picture" width="100" height="100">
+            <img src="${userProfilePic}" alt="${userName}'s profile picture" width="100" height="100" style="border-radius: 50%;">
         `;
     }
-
-    
+});
