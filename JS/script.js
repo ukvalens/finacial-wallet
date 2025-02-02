@@ -1,6 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Dashboard is ready!');
 
+    // Retrieve user data from session storage
+    const userName = sessionStorage.getItem('userName') || "User"; // Default to "User"
+    const userProfilePic = sessionStorage.getItem('userProfilePic') || "https://via.placeholder.com/100"; // Default profile pic
+
+    // Update the title of the page dynamically
+    document.title = `Welcome, ${userName}! - Wallet Dashboard`;
+
+    // Display welcome message with username and profile picture
+    const welcomeMessage = document.getElementById("welcome-message");
+    if (welcomeMessage) {
+        welcomeMessage.innerHTML = `
+            <h1>Welcome, ${userName}!</h1>
+            <img src="${userProfilePic}" alt="${userName}'s profile picture" width="100" height="100" style="border-radius: 50%;">
+        `;
+    }
+
     // Example data for demo purposes
     const accountBalances = [
         { type: 'Bank Account', balance: 5000 },
@@ -47,16 +63,4 @@ document.addEventListener('DOMContentLoaded', () => {
         li.textContent = notification;
         notificationsList.appendChild(li);
     });
-
-    // Display welcome message with username and profile picture
-    const userName = sessionStorage.getItem('userName') || "User"; // Default to "User" if no name is found
-    const userProfilePic = sessionStorage.getItem('userProfilePic') || "https://via.placeholder.com/100"; // Default profile pic
-
-    const welcomeMessage = document.getElementById("welcome-message");
-    if (welcomeMessage) {
-        welcomeMessage.innerHTML = `
-            <h1>Welcome, ${userName}!</h1>
-            <img src="${userProfilePic}" alt="${userName}'s profile picture" width="100" height="100" style="border-radius: 50%;">
-        `;
-    }
 });
