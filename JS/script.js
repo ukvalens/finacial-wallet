@@ -1,18 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Auth script is ready!');
+    console.log('App is ready!');
 
     const signupForm = document.getElementById('signupForm');
     const loginForm = document.getElementById('loginForm');
-    const signupImages = ['../IMAGES/image1.jpeg', '../IMAGES/image2.jpeg', '../IMAGES/image3.jpeg'];
-    const loginImages = ['../IMAGES/image1.jpeg', '../IMAGES/image2.jpeg', '../IMAGES/image3.jpeg'];
-    let signupImageIndex = 0;
-    let loginImageIndex = 0;
 
-    // SIGNUP FORM HANDLING
+    // Load user session for dashboard
+    const dashboardHeading = document.getElementById('dashboard-heading');
+    const profileName = document.getElementById('profile-name');
+    const profilePic = document.getElementById('profile-pic');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    // Get user data from session storage
+    const userName = sessionStorage.getItem('userName');
+    const userProfilePic = sessionStorage.getItem('userProfilePic') || '../IMAGES/profile.jpg';
+
+    if (userName) {
+        document.title = `Welcome, ${userName} - Wallet App`;
+        if (dashboardHeading) dashboardHeading.textContent = `Welcome, ${userName}`;
+        if (profileName) profileName.textContent = userName;
+        if (profilePic) profilePic.src = userProfilePic;
+    }
+
+    // SIGN-UP FORM HANDLING
     if (signupForm) {
         signupForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
+
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value.trim();
@@ -28,39 +41,24 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (!isStrongPassword(password)) {
-                alert('Password must be at least 8 characters long, include a mix of uppercase, lowercase, numbers, and special characters.');
+                alert('Password must be at least 8 characters long, including uppercase, lowercase, numbers, and special characters.');
                 return;
             }
 
-            // Check if user already exists
+            // Check if the user already exists
             if (localStorage.getItem(email)) {
                 alert('An account with this email already exists. Please log in.');
                 return;
             }
 
-            // Save user details securely (for demo purposes only)
-            const user = {
-                name,
-                email,
-                password,  // Note: NEVER store passwords in plaintext in real applications!
-            };
+            // Store user in localStorage (for demo purposes only)
+            const user = { name, email, password };
             localStorage.setItem(email, JSON.stringify(user));
 
             console.log('Sign-up successful:', user);
             alert('Sign-up successful! Redirecting to login page.');
-            
+
             window.location.href = '../HTML/login.html';
-        });
-
-        // Remove the required attribute from inputs
-        document.getElementById('name').removeAttribute('required');
-        document.getElementById('email').removeAttribute('required');
-        document.getElementById('password').removeAttribute('required');
-
-        // Image cycling for sign-up page
-        document.getElementById('signup-next').addEventListener('click', () => {
-            signupImageIndex = (signupImageIndex + 1) % signupImages.length;
-            document.getElementById('signup-img').src = signupImages[signupImageIndex];
         });
     }
 
@@ -68,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (loginForm) {
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
+
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value.trim();
 
@@ -86,24 +84,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const user = JSON.parse(storedUser);
             if (user.password === password) {
-                // Save user session details
+                // Save session
                 sessionStorage.setItem('userName', user.name);
                 sessionStorage.setItem('userEmail', user.email);
-                sessionStorage.setItem('userProfilePic', "https://example.com/profile.jpg"); // Replace with actual profile pic URL
+                sessionStorage.setItem('userProfilePic', '../IMAGES/profile.jpg'); // Replace with actual user image
 
                 console.log('Login successful');
                 alert('Login successful! Redirecting to dashboard.');
-                
+
                 window.location.href = '../HTML/wallet.html';
             } else {
                 alert('Invalid email or password.');
             }
         });
+    }
 
-        // Image cycling for login page
-        document.getElementById('login-next').addEventListener('click', () => {
-            loginImageIndex = (loginImageIndex + 1) % loginImages.length;
-            document.getElementById('login-img').src = loginImages[loginImageIndex];
+    // LOGOUT FUNCTION
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            sessionStorage.clear();
+            alert('You have been logged out.');
+            window.location.href = '../HTML/login.html';
         });
     }
 });
