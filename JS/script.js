@@ -8,11 +8,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update the title of the page dynamically
     document.title = `Welcome, ${userName}! - Wallet Dashboard`;
 
+    // Update the wallet heading to include the username
+    const walletHeading = document.getElementById("wallet-heading");
+    if (walletHeading) {
+        walletHeading.textContent = `Welcome, ${userName}! - Wallet Dashboard`;
+    }
+
     // Display welcome message with username and profile picture
     const welcomeMessage = document.getElementById("welcome-message");
     if (welcomeMessage) {
         welcomeMessage.innerHTML = `
-            <h1>Welcome, ${userName}!</h1>
+            <h2>Welcome, ${userName}!</h2>
             <img src="${userProfilePic}" alt="${userName}'s profile picture" width="100" height="100" style="border-radius: 50%;">
         `;
     }
